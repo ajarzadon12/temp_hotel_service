@@ -3,9 +3,9 @@ class HotelDataController < ApplicationController
   # params sample:
   # {
   #   "destination"=>["(RAK) Marrakech"],
-  #   "start_date"=>"2019-10-21",
-  #   "end_date"=>"2019-10-27",
-  #   "room_type"=>"2 Room, 4 Adult, 2 Child"
+  #   "check_in_date"=>"2019-10-21",
+  #   "check_out_date"=>"2019-10-27",
+  #   "occupancies"=>"2 Room, 4 Adult, 2 Child"
   # }
   def hotel_search
     render json: { hotels: [
@@ -29,7 +29,7 @@ class HotelDataController < ApplicationController
         facilities: ['Internet access'],
         styles: ['Beach'],
         propertyType: 'Bread and Breakfast',
-        provider: 'hotelbeds',
+        provider: ['hotelbeds','totalstay'],
       },
       {
         hotelId: 2,
@@ -43,7 +43,7 @@ class HotelDataController < ApplicationController
         nearbyPlaces: [
           { distance: 30.0, name: 'Castillo de Almodovar del Río' },
           { distance: 8.0, name: 'Jardines de Moratalla' },
-          { distance: 3.0, name: 'Palacio de Portocarrero' },
+          { distance: 1.0, name: 'Palacio de Portocarrero' },
           { distance: 28.0, name: 'Écija' },
           { distance: 12.0, name: 'Parque Natural de Hornachuelos' },
         ],
@@ -51,7 +51,7 @@ class HotelDataController < ApplicationController
         facilities: ['Supermarket'],
         styles: ['Budget'],
         propertyType: 'Hostel',
-        provider: 'totalstay',
+        provider: ['totalstay'],
       },
       {
         hotelId: 3,
@@ -73,7 +73,7 @@ class HotelDataController < ApplicationController
         facilities: ['Minibar'],
         styles: ['Business'],
         propertyType: 'Bread and Breakfast',
-        provider: 'hotelbeds',
+        provider: ['hotelbeds','totalstay'],
       },
       {
         hotelId: 4,
@@ -95,7 +95,7 @@ class HotelDataController < ApplicationController
         facilities: ['Set menu dinner'],
         styles: ['Family'],
         propertyType: 'Hostel',
-        provider: 'totalstay',
+        provider: ['totalstay'],
       },
       {
         hotelId: 5,
@@ -117,7 +117,7 @@ class HotelDataController < ApplicationController
         facilities: ['Entertainment Area'],
         styles: ['Luxury'],
         propertyType: 'Bread and Breakfast',
-        provider: 'hotelbeds',
+        provider: ['hotelbeds','totalstay'],
       },
     ]
     }, status: :ok
@@ -143,7 +143,7 @@ class HotelDataController < ApplicationController
     render json: {
       hotelId: params[:hotel_id],
       name: "#{params[:hotel_id]} Monasterio de San Francisco",
-      provider: (params[:hotel_id].to_i % 2 == 0) ? 'totalstay' : 'hotelbeds',
+      provider: (params[:hotel_id].to_i % 2 == 0) ? ['totalstay'] : ['hotelbeds', 'totalstay'],
       description: "This hotel is situated in Palma del Rio, just 1 km away from the resort centre. Cordoba is just 54 km away. Many boutiques, cafes, bars, restaurants and nightclubs can be found close by. Links to the public transport network can be found just a short walking distance away. Seville Airport is 70 km away. This hotel is set amidst 2000 metres squared of gardens, around a 17th-century courtyard. The guest rooms come well equipped with modern amenities, for visitors' convenience. The hotel features a conference room, for business travellers. Guests will appreciate the delectable dining experience that the hotel's restaurant has to offer. Guests can sit back and unwind with a refreshing drink from the bar.",
       starRating: params[:hotel_id],
       city: 'Palma Del Rio',
